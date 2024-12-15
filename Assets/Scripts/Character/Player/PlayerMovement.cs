@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(velocity.x, rb.velocity.y);
     }
 
+    // removing grounded as a separate method and calling it when needed?
     private bool IsGrounded()
     {
         isGrounded = GetComponent<PlayerJump>().IsGrounded();
