@@ -20,7 +20,7 @@ public class RedBlobAnimation : MonoBehaviour
         animator.SetFloat("moveSpeed", moveSpeed);
 
         // Jumping animation
-        bool isGrounded = redBlobJump.IsGrounded();
-        animator.SetBool("isGrounded", isGrounded);
+        // bool isGrounded = redBlobJump.IsGrounded();
+        // animator.SetBool("isGrounded", isGrounded);
     }
 }

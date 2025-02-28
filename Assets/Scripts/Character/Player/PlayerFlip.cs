@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerFlip : MonoBehaviour
 {
     private bool facingRight = true;
+    public PlayerMovement player;
 
     private void Update()
     {
@@ -11,7 +12,7 @@ public class PlayerFlip : MonoBehaviour
 
     private void FlipCharacter()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float horizontalInput = player.joystick.Horizontal;
 
         if (horizontalInput > 0 && !facingRight || horizontalInput < 0 && facingRight)
         {

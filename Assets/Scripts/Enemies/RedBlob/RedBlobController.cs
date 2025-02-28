@@ -4,7 +4,6 @@ using UnityEngine;
 public class RedBlobController : MonoBehaviour
 {
     private RedBlobAnimation redBlobAnimation;
-    private EnemyBaseMovement enemyBaseMovement;
 
     private void Start()
     {

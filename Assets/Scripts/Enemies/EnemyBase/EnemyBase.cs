@@ -21,7 +21,6 @@ public class EnemyBase : MonoBehaviour
 
     }
 
-    // TODO
     public virtual void TakeDamage(int damageAmount)
     {
         health -= damageAmount;
@@ -31,7 +30,6 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    // TODO
     protected void Die()
     {
         Destroy(gameObject);

@@ -19,12 +19,12 @@ public class EnemyBaseJump : MonoBehaviour
 
         if (groundCheck == null)
         {
-            Debug.LogWarning("GroundCheckPoint is not set. Assign a child Transform to groundCheckPoint.");
+            Debug.LogWarning("GroundCheck is not set. Assign a child Transform to groundCheck.");
         }
     }
 
     // Checks if the enemy is on the ground using a small overlap circle.
-    private bool CheckIfGrounded()
+    private bool isGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
@@ -32,7 +32,7 @@ public class EnemyBaseJump : MonoBehaviour
     // Enemy jump with jumpForce
     public void PerformJump()
     {
-        if (CheckIfGrounded())
+        if (isGrounded())
         rb.velocity = new Vector2(rb.velocity.x, 0f); // Reset vertical velocity before applying the jump force
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         OnJump();                                   // Trigger any additional jump behavior

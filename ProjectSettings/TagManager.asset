@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Fireball
+  - SpawnPoint
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -12,9 +15,9 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
-  - 
-  - 
+  - Player
+  - Projectiles
+  - Collectibles
   - 
   - 
   - 
@@ -38,18 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background1
+  - name: Background
     uniqueID: 3197190617
-    locked: 0
-  - name: Background2
-    uniqueID: 1934322219
-    locked: 0
-  - name: Background3
-    uniqueID: 3759253933
     locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Foreground
-    uniqueID: 1106244341
     locked: 0

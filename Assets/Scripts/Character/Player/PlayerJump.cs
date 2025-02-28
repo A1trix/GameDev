@@ -7,6 +7,7 @@ public class PlayerJump : MonoBehaviour
     public float groundCheckRadius;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public PlayerMovement player;
 
     private Rigidbody2D rb;
 
@@ -17,7 +18,8 @@ public class PlayerJump : MonoBehaviour
 
     public void HandleJumping()
     {
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        float verticalMove = player.joystick.Vertical;
+        if (verticalMove >= 0.5f && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
