@@ -29,7 +29,6 @@ public class PlayerAttack : MonoBehaviour
         playerAnimation = GetComponent<PlayerAnimation>();
     }
 
-    // Public method for normal attack (can be called from UI button)
     public void PerformNormalAttack()
     {
         if (!playerJump.IsGrounded())
@@ -45,14 +44,12 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    // Public method for ranged attack (can be called from UI button)
     public void PerformRangedAttack()
     {
         playerAnimation.TriggerRangedAttackAnimation();
         PerformAttack(RangedAttack);
     }
 
-    // Common method to perform an attack
     private void PerformAttack(AttackType attack)
     {
         if (attack.fireBallPrefab == null)
@@ -70,34 +67,28 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
-            // Ranged Attack Logic
             ShootFireBall(attack);
         }
     }
 
     private void ShootFireBall(AttackType attack)
     {
-        // Check if the fireBallPrefab is assigned
         if (attack.fireBallPrefab == null)
         {
             Debug.LogError("Fireball prefab is not assigned in the AttackType.");
             return;
         }
 
-        // Check if the cooldown has passed
         if (Time.time - lastShootTime < shootCooldown)
         {
             Debug.Log("Fireball is on cooldown.");
             return;
         }
 
-        // Update the last shoot time
         lastShootTime = Time.time;
 
-        // Instantiate the projectile at the attack point
         GameObject fireball = ObjectPool.instance.GetPoolObject();
 
-        // Check if the fireball was instantiated successfully
         if (fireball == null)
         {
             Debug.LogError("Failed to instantiate fireball.");
@@ -113,20 +104,17 @@ public class PlayerAttack : MonoBehaviour
 
         if (fireballScript != null)
         {
-            // Determine the shooting direction based on the player's facing direction
             float direction = transform.localScale.x > 0 ? 1f : -1f;
             Vector2 shootDirection = new Vector2(direction, 0);
 
-            // Initialize the fireball with the necessary data
             fireballScript.Initialize(
                 shootDirection,
                 attack.projectileSpeed,
                 attack.attackDamage,
                 enemyLayers,
-                LayerMask.GetMask("Ground") // Set the obstacle layer(s)
+                LayerMask.GetMask("Ground")
             );
 
-            // Subscribe to the OnFireballDestroyed event
             fireballScript.OnFireballDestroyed += HandleFireballDestroyed;
         }
         else
@@ -135,21 +123,13 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    // Callback method for when the fireball is destroyed
     private void HandleFireballDestroyed(Fireball fireball)
     {
         Debug.Log("Fireball was destroyed!");
 
-        // Unsubscribe from the event
         fireball.OnFireballDestroyed -= HandleFireballDestroyed;
-
-        // You can add additional logic here, such as:
-        // - Playing a sound effect
-        // - Spawning a particle effect
-        // - Logging debug information
     }
 
-    // Visualization
     private void OnDrawGizmosSelected()
     {
         // Visualize Attack range

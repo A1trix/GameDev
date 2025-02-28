@@ -3,46 +3,25 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class PlayerData
 {
-    public int level;
-    // public int currentHealth;
-    public int maxHealth;
-    public int coins;
-    public float[] position;
-    public string sceneName;
+    public int level;       // Stores the player's current level
+    public int maxHealth;   // Stores the player's maximum health
+    public int coins;       // Stores the player's collected coins
+    public float[] position; // Stores the player's position (x, y)
+    public string sceneName; // Stores the current scene name for loading
 
+    // Constructor to save player data from PlayerBase
     public PlayerData(PlayerBase player)
     {
         level = player.level;
-        // currentHealth = player.currentHealth;
         maxHealth = player.maxHealth;
         coins = player.coinCount;
+
+        // Saves the player's spawn position
         position = new float[2];
         position[0] = player.spawnPoint.position.x;
         position[1] = player.spawnPoint.position.y;
+
+        // Saves the active scene name
         sceneName = SceneManager.GetActiveScene().name;
     }
 }
-
-// using Unity.VisualScripting;
-// using UnityEngine;
-// using UnityEngine.SceneManagement;
-
-// [System.Serializable]
-// public class PlayerData {
-
-// 	public int level;
-//   public int health;
-//   public int coins;
-//   public float[] position;
-
-//   public PlayerData(PlayerBase player)
-//   {
-//     level = player.level;
-//     health = player.maxHealth;
-//     coins = player.coinCount;
-
-//     position = new float[2];
-//     position[0] = player.transform.position.x;
-//     position[1] = player.transform.position.y;
-//   }
-// }

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Not integrated
 public class Chest : MonoBehaviour
 {
   private ChestAnimation chestAnimation;

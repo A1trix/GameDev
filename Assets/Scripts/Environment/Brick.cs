@@ -60,7 +60,7 @@ public class Brick : MonoBehaviour
             PlayerBase player = collision.gameObject.GetComponent<PlayerBase>();
             if (player != null)
             {
-                player.TakeDamage(player.maxHealth); // Deal enough damage to kill the player
+                player.TakeDamage(player.maxHealth);
             }
         }
     }

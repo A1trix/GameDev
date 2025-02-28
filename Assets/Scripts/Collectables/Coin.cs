@@ -1,50 +1,50 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public PlayerBase player;
+    public PlayerBase player; // Reference to the player
     public int value = 1; // Value of the coin (default is 1)
-    [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private TextMeshProUGUI coinText; // UI element for displaying coin count
 
+    // Initializes UI and loads saved coin count
     private void Start()
     {
         UpdateCoinUI();
         player.LoadPlayerCoins();
     }
 
+    // Updates the coin UI every frame (potentially redundant)
     private void Update()
     {
         UpdateCoinUI();
-        // player.LoadPlayerCoins();
     }
 
+    // Detects collision with the player and collects the coin
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Check if the player collided with the coin
         if (collision.CompareTag("Player"))
         {
-            // Get the Player component and add the coin value
             PlayerBase player = collision.GetComponent<PlayerBase>();
             if (player != null)
             {
                 CollectCoin(value);
             }
 
-            // Destroy the coin
-            Destroy(gameObject);
+            Destroy(gameObject); // Remove the coin from the scene
         }
     }
 
+    // Adds the coin value to the player's total and updates the UI
     public void CollectCoin(int value)
     {
         player.coinCount += value;
         UpdateCoinUI();
-        SaveSystem.SavePlayer(this.player);
+        SaveSystem.SavePlayer(player); // Saves the updated coin count
         Debug.Log("Coin Count: " + player.coinCount);
     }
 
+    // Updates the coin UI text with the current coin count
     public void UpdateCoinUI()
     {
         if (coinText != null) coinText.text = $"{player.coinCount}";

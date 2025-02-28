@@ -131,21 +131,4 @@ public class SceneController : MonoBehaviour
             LoadDefaultScene();
         }
     }
-    
-    // public void OnPlayButtonClicked()
-    // {
-    //     Time.timeScale = 1f;
-        
-    //     // Check if there is saved player data
-    //     if (SaveSystem.SaveFileExists())
-    //     {
-    //         SaveSystem.LoadPlayer();   
-    //         Debug.Log("Data found");
-    //     }
-    //     else
-    //     {
-    //         // Start a new game from the first level
-    //         LoadDefaultScene();
-    //     }
-    // }
 }

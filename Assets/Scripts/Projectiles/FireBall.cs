@@ -18,8 +18,6 @@ public class Fireball : MonoBehaviour
 
     private void Start()
     {
-        // Destroy the fireball after a set lifetime to prevent it from existing indefinitely
-        // Destroy(gameObject, 5f); // Adjust the lifetime as needed
         isDestroyed = false;
     }
 
@@ -80,12 +78,6 @@ private void OnTriggerEnter2D(Collider2D hitInfo)
     // Destroy(gameObject); // Only destroy the fireball
     gameObject.SetActive(false);
 }
-
-    // private void OnDestroy()
-    // {
-    //     // Notify subscribers that the fireball is being destroyed
-    //     TriggerDestroyEvent();
-    // }
 
     private void TriggerDestroyEvent()
     {

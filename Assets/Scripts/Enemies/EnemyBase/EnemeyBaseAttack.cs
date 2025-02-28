@@ -3,59 +3,47 @@ using UnityEngine;
 public class EnemyBaseAttack : MonoBehaviour
 {
     [Header("Attack Settings")]
-    public int attackDamage = 10;
-    public Vector2 attackRange = new Vector2(1.0f, 1.0f);
-    public float attackCooldown = 1.5f;
-    public LayerMask targetLayer;
-    private float lastAttackTime = 0;
+    public int attackDamage = 10; // Damage dealt per attack
+    public Vector2 attackRange = new Vector2(1.0f, 1.0f); // Area of attack
+    public float attackCooldown = 1.5f; // Time between attacks
+    public LayerMask targetLayer; // Defines what objects can be attacked
+    private float lastAttackTime = 0; // Tracks last attack time
 
+    // Continuously checks if the enemy can attack
     protected virtual void Update()
     {
         HandleAttack();
     }
 
-    // TODO (check method for functionality)
+    // Checks cooldown and attacks if a target is detected
     protected virtual void HandleAttack()
     {
-        // Check if enough time has passed since the last attack
         if (Time.time >= lastAttackTime + attackCooldown)
         {
             Collider2D target = DetectTarget();
             if (target != null)
             {
                 PerformAttack(target);
-                lastAttackTime = Time.time; // Reset the attack timer
+                lastAttackTime = Time.time;
             }
         }
     }
 
-    // TODO (check method for functionality)
-    // Detect a target in range
+    // Detects if a target is within attack range
     protected virtual Collider2D DetectTarget()
     {
-        // OverlapBox detects a target within the attack range
         Vector2 center = (Vector2)transform.position;
-        Collider2D detectedTarget = Physics2D.OverlapBox(center, attackRange, 0f, targetLayer);
-
-        if (detectedTarget != null)
-        {
-            Debug.Log($"{gameObject.name} detected {detectedTarget.name} within attack range.");
-        }
-
-        return detectedTarget;
+        return Physics2D.OverlapBox(center, attackRange, 0f, targetLayer);
     }
 
-    // TODO (check method for functionality)
-    // Perform attack (damage player)
+    // Applies damage to the detected target
     protected virtual void PerformAttack(Collider2D target)
     {
         Debug.Log($"{gameObject.name} attacked {target.name} for {attackDamage} damage.");
-
-        // Call a method on the target to apply damage
         target.GetComponent<PlayerBase>()?.TakeDamage(attackDamage);
     }
 
-    // Visualization
+    // Visualizes the attack range in the editor
     protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Not integrated
 public class ChestAnimation : MonoBehaviour
 {
     private Animator animator; // Reference to the Animator component

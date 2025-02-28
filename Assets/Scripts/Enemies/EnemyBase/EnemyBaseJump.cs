@@ -5,7 +5,7 @@ public class EnemyBaseJump : MonoBehaviour
     [Header("Jump Settings")]
     public float jumpForce = 5f;
     public float jumpCooldown = 2f;
-    public bool canJump = true;
+    private bool canJump = true;
     public LayerMask groundLayer;
     private Rigidbody2D rb;
 
@@ -24,22 +24,31 @@ public class EnemyBaseJump : MonoBehaviour
     }
 
     // Checks if the enemy is on the ground using a small overlap circle.
-    private bool isGrounded()
+    private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
-    // Enemy jump with jumpForce
+    // Enemy jumps with jumpForce if conditions are met
     public void PerformJump()
     {
-        if (isGrounded())
-        rb.velocity = new Vector2(rb.velocity.x, 0f); // Reset vertical velocity before applying the jump force
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        OnJump();                                   // Trigger any additional jump behavior
+        if (canJump && IsGrounded())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0f); // Reset vertical velocity before jumping
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            OnJump();
+            canJump = false;
+            Invoke(nameof(ResetJump), jumpCooldown); // Reactivate jumping after cooldown
+        }
+    }
+
+    // Resets jump ability after cooldown
+    private void ResetJump()
+    {
+        canJump = true;
     }
 
     // Additional logic to be executed when the enemy jumps
-    // Can be overridden in derived classes for specific enemy behavior
     protected virtual void OnJump()
     {
         Debug.Log($"{gameObject.name} has jumped!");

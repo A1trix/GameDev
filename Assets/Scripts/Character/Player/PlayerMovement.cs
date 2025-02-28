@@ -23,24 +23,28 @@ public class PlayerMovement : MonoBehaviour
     public float followSpeed = 5f; // Speed at which the camera follows the player
 
     private Rigidbody2D rb; // Reference to the Rigidbody2D component
-    // private bool isGrounded; // Tracks if the player is grounded
 
+    // Initializes component references
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         joystick = FindObjectOfType<Joystick>(); // Find the joystick in the scene
+
+        // Auto-assign the main camera if not set
         if (mainCamera == null)
         {
-            mainCamera = Camera.main; // Auto-assign the main camera if not set
+            mainCamera = Camera.main;
         }
     }
 
+    // Handles movement and camera follow each frame
     private void Update()
     {
         HandleMovement();
         FollowPlayerWithCamera();
     }
 
+    // Processes player movement based on joystick input
     public void HandleMovement()
     {
         if (knockbackCounter <= 0)
@@ -53,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
                 // Normalize the input to ensure consistent speed
                 horizontalInput = Mathf.Sign(horizontalInput);
 
-                // Apply movement speed
+                // Apply movement speed based on whether the player is grounded
                 float speed = playerJump.IsGrounded() ? moveSpeed : moveSpeed * airControlMultiplier;
                 rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
             }
@@ -65,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // Apply knockback
+            // Apply knockback effect
             rb.velocity = new Vector2(
                 knockbackFromRight ? -knockbackForce : knockbackForce,
                 knockbackForce
@@ -74,12 +78,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Applies a knockback effect to the player
     public void ApplyKnockback(bool fromRight)
     {
         knockbackFromRight = fromRight;
         knockbackCounter = knockbackDuration;
     }
 
+    // Makes the camera smoothly follow the player
     public void FollowPlayerWithCamera()
     {
         if (mainCamera != null)
@@ -93,9 +99,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Draws a ground check radius in the Unity Editor for debugging
     private void OnDrawGizmosSelected()
     {
-        // Draw the ground check radius in the editor
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, 0.2f);
     }
